@@ -1,13 +1,11 @@
 package br.com.cod3r.minado;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 class RunAppTest {
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void rodandoAplicacao() {
+		RunApp.main(new String[] {"arg1", "arg2", "arg3"});
 	}
 }
