@@ -79,6 +79,16 @@ class CampoTest {
 	}
 	
 	@Test
+	@DisplayName(value = "Retornar falso quando estiver aberto, marcado = false")
+	void marcadoTemQueSerFalso_QuandoEstiverAberto() {
+		campo.setAberto(true);
+		
+		campo.alternarMarcacao();
+		
+		assertFalse(campo.isMarcado());
+	}
+	
+	@Test
 	@DisplayName(value = "Lancar a excecao ExplosaoException quando clicar em um campo minado")
 	void lancarExplosaoException_QuandoClicarEmCampoMinado() {
 		campo.setAberto(false);
@@ -88,6 +98,42 @@ class CampoTest {
 		campo.setMinado(true);
 		
 		assertThrows(ExplosaoException.class, () -> campo.abrir());
+	}
+	
+	@Test
+	@DisplayName(value = "Abrir o vizinho que nao tenha mina")
+	void abrirVizinhoSeguro() {
+		Campo vizinhoEsquerdo = new Campo(2, 3);
+				
+		vizinhoEsquerdo.setMinado(false);
+		
+		campo.adicionarVizinho(vizinhoEsquerdo);
+		
+		campo.abrir();
+		
+		assertTrue(vizinhoEsquerdo.isAberto());
+	}
+	
+	@Test
+	@DisplayName(value = "Nao pode abrir vizinho com campo minado")
+	void naoPodeAbrirVizinhoComCampoMinado() {
+		Campo vizinhoEsquerdo = new Campo(2, 3);
+		
+		Campo vizinhoDoVizinhoEsquerdo = new Campo(2, 4);	
+		
+		vizinhoDoVizinhoEsquerdo.setMinado(true);
+		
+		vizinhoEsquerdo.adicionarVizinho(vizinhoDoVizinhoEsquerdo);
+		
+		
+		vizinhoEsquerdo.setMinado(false);
+		
+		campo.adicionarVizinho(vizinhoEsquerdo);
+		
+		
+		campo.abrir();
+		
+		assertTrue(vizinhoEsquerdo.isAberto() && !vizinhoDoVizinhoEsquerdo.isAberto());
 	}
 	
 	@Test

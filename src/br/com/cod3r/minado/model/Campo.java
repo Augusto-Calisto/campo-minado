@@ -28,7 +28,7 @@ public class Campo {
 		int deltaGeral = deltaLinha + deltaColuna;
 		
 		if(deltaGeral == 1 || deltaGeral == 2) {
-			vizinhos.add(campoVizinho);
+			this.vizinhos.add(campoVizinho);
 			
 			return true;
 		}
@@ -51,7 +51,7 @@ public class Campo {
 			}
 			
 			if(vizinhancaSegura()) {
-				vizinhos.forEach(vizinho -> vizinho.abrir()); // recursao
+				this.vizinhos.forEach(vizinho -> vizinho.abrir()); // recursao
 			}
 			
 			return true;
@@ -61,7 +61,7 @@ public class Campo {
 	}
 	
 	private boolean vizinhancaSegura() {
-		return vizinhos.stream().noneMatch(vizinho -> vizinho.minado);
+		return this.vizinhos.stream().noneMatch(vizinho -> vizinho.minado);
 	}
 
 	public boolean isAberto() {
@@ -70,10 +70,6 @@ public class Campo {
 
 	public void setAberto(boolean aberto) {
 		this.aberto = aberto;
-	}
-
-	public boolean isMinado() {
-		return minado;
 	}
 
 	public void setMinado(boolean minado) {
@@ -86,21 +82,5 @@ public class Campo {
 
 	public void setMarcado(boolean marcado) {
 		this.marcado = marcado;
-	}
-
-	public List<Campo> getVizinhos() {
-		return vizinhos;
-	}
-
-	public void setVizinhos(List<Campo> vizinhos) {
-		this.vizinhos = vizinhos;
-	}
-
-	public int getLinha() {
-		return linha;
-	}
-
-	public int getColuna() {
-		return coluna;
 	}
 }
