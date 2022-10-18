@@ -63,6 +63,24 @@ public class Campo {
 	private boolean vizinhancaSegura() {
 		return this.vizinhos.stream().noneMatch(vizinho -> vizinho.minado);
 	}
+	
+	public boolean objetivoAlcancado() {
+		boolean desvendado = !this.minado && this.aberto;
+		
+		boolean protegido = this.minado && this.marcado;
+		
+		return desvendado || protegido;
+	}
+	
+	public long vizinhosComMinas() {		
+		return this.vizinhos.stream().filter(vizinho -> vizinho.minado).count();
+	}
+	
+	public void reiniciar() {
+		this.aberto = false;
+		this.minado = false;
+		this.marcado = false;
+	}
 
 	public boolean isAberto() {
 		return aberto;
@@ -75,6 +93,10 @@ public class Campo {
 	public void setMinado(boolean minado) {
 		this.minado = minado;
 	}
+	
+	public List<Campo> getVizinhos() {
+		return vizinhos;
+	}
 
 	public boolean isMarcado() {
 		return marcado;
@@ -82,5 +104,28 @@ public class Campo {
 
 	public void setMarcado(boolean marcado) {
 		this.marcado = marcado;
+	}
+	
+	@Override
+	public String toString() {
+		if(this.marcado) {
+			return "X";
+		}
+		
+		if(this.aberto && this.minado) {
+			return "*";
+		}
+		
+		long quantidadeDeMinas = vizinhosComMinas();
+		
+		if(this.aberto && quantidadeDeMinas > 0) {
+			return Long.toString(quantidadeDeMinas);
+		}
+		
+		if(this.aberto) {
+			return " ";
+		}
+		
+		return "?";
 	}
 }

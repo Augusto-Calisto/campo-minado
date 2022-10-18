@@ -1,5 +1,6 @@
 package br.com.cod3r.minado.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,9 +32,9 @@ class CampoTest {
 	@Test
 	@DisplayName(value = "Retornar verdadeiro para vizinho esquerda se a distancia entre os campos for igual a 1")
 	void retornarVerdadeiro_DistanciaIgual_Um_VizinhoEsquerda() {
-		Campo vizinhoDireito = new Campo(2, 1);
+		Campo vizinhoEsquerdo = new Campo(2, 1);
 		
-		boolean isVizinho = campo.adicionarVizinho(vizinhoDireito);
+		boolean isVizinho = campo.adicionarVizinho(vizinhoEsquerdo);
 		
 		assertTrue(isVizinho);
 	}
@@ -61,9 +62,9 @@ class CampoTest {
 	@Test
 	@DisplayName(value = "Retornar falso se a distancia entre o campo e o vizinho for diferente de 1 ou 2")
 	void retornarFalso_Se_DeltaForMaior_UmOuDois() {
-		Campo vizinho = new Campo(1, 4);
+		Campo campoDistante = new Campo(1, 4);
 		
-		boolean isVizinho = campo.adicionarVizinho(vizinho);
+		boolean isVizinho = campo.adicionarVizinho(campoDistante);
 		
 		assertFalse(isVizinho);
 	}
@@ -103,37 +104,37 @@ class CampoTest {
 	@Test
 	@DisplayName(value = "Abrir o vizinho que nao tenha mina")
 	void abrirVizinhoSeguro() {
-		Campo vizinhoEsquerdo = new Campo(2, 3);
+		Campo vizinhoDireito = new Campo(2, 3);
 				
-		vizinhoEsquerdo.setMinado(false);
+		vizinhoDireito.setMinado(false);
 		
-		campo.adicionarVizinho(vizinhoEsquerdo);
+		campo.adicionarVizinho(vizinhoDireito);
 		
 		campo.abrir();
 		
-		assertTrue(vizinhoEsquerdo.isAberto());
+		assertTrue(vizinhoDireito.isAberto());
 	}
 	
 	@Test
 	@DisplayName(value = "Nao pode abrir vizinho com campo minado")
 	void naoPodeAbrirVizinhoComCampoMinado() {
-		Campo vizinhoEsquerdo = new Campo(2, 3);
+		Campo vizinhoDireito = new Campo(2, 3);
 		
-		Campo vizinhoDoVizinhoEsquerdo = new Campo(2, 4);	
+		Campo vizinhoDoVizinhoDireito = new Campo(2, 4);	
 		
-		vizinhoDoVizinhoEsquerdo.setMinado(true);
+		vizinhoDoVizinhoDireito.setMinado(true);
 		
-		vizinhoEsquerdo.adicionarVizinho(vizinhoDoVizinhoEsquerdo);
+		vizinhoDireito.adicionarVizinho(vizinhoDoVizinhoDireito);
 		
 		
-		vizinhoEsquerdo.setMinado(false);
+		vizinhoDireito.setMinado(false);
 		
-		campo.adicionarVizinho(vizinhoEsquerdo);
+		campo.adicionarVizinho(vizinhoDireito);
 		
 		
 		campo.abrir();
 		
-		assertTrue(vizinhoEsquerdo.isAberto() && !vizinhoDoVizinhoEsquerdo.isAberto());
+		assertTrue(vizinhoDireito.isAberto() && !vizinhoDoVizinhoDireito.isAberto());
 	}
 	
 	@Test
@@ -156,5 +157,28 @@ class CampoTest {
 		campo.setMarcado(true);
 				
 		assertFalse(campo.abrir());
+	}
+	
+	@Test
+	@DisplayName(value = "Verificar quantidade vizinhos com minas")
+	void verificando_QuantidadeDeVizinhosComMinas() {
+		Campo vizinhoDeCima = new Campo(1, 2);
+		vizinhoDeCima.setMinado(false);
+		
+		Campo vizinhoDireito = new Campo(2, 3);
+		vizinhoDireito.setMinado(false);
+		
+		Campo vizinhoDebaixo = new Campo(3, 2);
+		vizinhoDebaixo.setMinado(true);
+		
+		
+		campo.adicionarVizinho(vizinhoDeCima);
+		
+		campo.adicionarVizinho(vizinhoDireito);
+
+		campo.adicionarVizinho(vizinhoDebaixo);
+		
+		
+		assertEquals(1L, campo.vizinhosComMinas());
 	}
 }
