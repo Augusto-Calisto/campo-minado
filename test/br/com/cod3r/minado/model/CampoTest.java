@@ -20,7 +20,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho direita se a distancia entre os campos for igual a 1")
+	@DisplayName(value = "Retornar verdadeiro para vizinho direito se a distancia entre os campos = 1")
 	void retornarVerdadeiro_DistanciaIgual_Um_VizinhoDireita() {
 		Campo vizinhoDireito = new Campo(2, 3);
 		
@@ -30,7 +30,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho esquerda se a distancia entre os campos for igual a 1")
+	@DisplayName(value = "Retornar verdadeiro para vizinho esquerdo se a distancia entre os campos = 1")
 	void retornarVerdadeiro_DistanciaIgual_Um_VizinhoEsquerda() {
 		Campo vizinhoEsquerdo = new Campo(2, 1);
 		
@@ -40,7 +40,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho diagonal direita se a distancia entre os campos for igual a 2")
+	@DisplayName(value = "Retornar verdadeiro para vizinho diagonal direita se a distancia entre os campos = 2")
 	void retornarVerdadeiro_DistanciaIgual_Dois_DiagonalDireita() {
 		Campo vizinhoDiagonalDireita = new Campo(1, 3);
 		
@@ -50,7 +50,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho diagonal esquerda se a distancia entre os campos for igual a 2")
+	@DisplayName(value = "Retornar verdadeiro para vizinho diagonal esquerda se a distancia entre os campos = 2")
 	void retornarVerdadeiro_DistanciaIgual_Dois_DiagonalEsquerda() {
 		Campo vizinhoDiagonalEsquerda = new Campo(1, 1);
 		
@@ -116,7 +116,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Nao pode abrir vizinho com campo minado")
+	@DisplayName(value = "Nao expandir vizinho com campo minado")
 	void naoPodeAbrirVizinhoComCampoMinado() {
 		Campo vizinhoDireito = new Campo(2, 3);
 		

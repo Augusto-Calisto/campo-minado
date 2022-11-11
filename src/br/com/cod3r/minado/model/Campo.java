@@ -72,7 +72,7 @@ public class Campo {
 		return desvendado || protegido;
 	}
 	
-	public long vizinhosComMinas() {		
+	public long vizinhosComMinas() {	
 		return this.vizinhos.stream().filter(vizinho -> vizinho.minado).count();
 	}
 	
@@ -80,6 +80,22 @@ public class Campo {
 		this.aberto = false;
 		this.minado = false;
 		this.marcado = false;
+	}
+
+	public int getLinha() {
+		return linha;
+	}
+
+	public int getColuna() {
+		return coluna;
+	}
+
+	public boolean isMinado() {
+		return minado;
+	}
+
+	public void setVizinhos(List<Campo> vizinhos) {
+		this.vizinhos = vizinhos;
 	}
 
 	public boolean isAberto() {

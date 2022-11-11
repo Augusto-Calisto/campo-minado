@@ -25,13 +25,27 @@ public class Tabuleiro {
 		sortearMinas();
 	}
 	
+	public void abrirCampo(int linha, int coluna) {		
+		campos.stream()
+			.filter(campo -> campo.getLinha() == linha && campo.getColuna() == coluna)
+			.findFirst()
+			.ifPresent(campo -> campo.abrir());
+	}
+	
+	public void marcarCampo(int linha, int coluna) {
+		campos.stream()
+			.filter(campo -> campo.getLinha() == linha && campo.getColuna() == coluna)
+			.findFirst()
+			.ifPresent(campo -> campo.alternarMarcacao());
+	}
+	
 	private void gerarCampos() {
 		// matriz 10x10  linha = 1 ate 10  ||  coluna = 1 ate 10
 		
-		for(int linha = 1; linha <= quantidadeDeLinhas; linha++) {			
-			for(int coluna = 1; coluna <= quantidadeDeColunas; coluna++) {				
+		for(int linha = 1; linha <= this.quantidadeDeLinhas; linha++) {
+			for(int coluna = 1; coluna <= this.quantidadeDeColunas; coluna++) {		
 				campos.add(new Campo(linha, coluna));
-			}			
+			}
 		}
 	}
 
@@ -44,11 +58,9 @@ public class Tabuleiro {
 	}
 	
 	private void sortearMinas() {
-		int quantidadeDeMinasParaArmar = (this.quantidadeDeLinhas * this.quantidadeDeColunas) / 4;  // 	1/4 do tabuleiro
-		
 		Random gerador = new Random();
 		
-		for(int i = 0; i < quantidadeDeMinasParaArmar; i++) {
+		for(int i = 0; i < this.quantidadeDeMinas; i++) {
 			int indiceAleatorio = gerador.ints(0, campos.size() - 1).findFirst().getAsInt();
 					
 			campos.get(indiceAleatorio).setMinado(true);
@@ -61,11 +73,31 @@ public class Tabuleiro {
 	
 	public void reiniciarJogo() {
 		campos.stream().forEach(campo -> campo.reiniciar());
+		
 		sortearMinas();
 	}
 
 	@Override
 	public String toString() {
-		return "Tabuleiro [quantidadeDeLinhas=" + quantidadeDeLinhas + ", quantidadeDeColunas=" + quantidadeDeColunas + ", quantidadeDeMinas=" + quantidadeDeMinas + "]";
+		StringBuilder builder = new StringBuilder();
+		
+		int i = 0;
+		
+		for(int linha = 1; linha <= this.quantidadeDeLinhas; linha++) {
+			for(int coluna = 1; coluna <= this.quantidadeDeColunas; coluna++) {
+				
+				builder.append(" ");
+				
+				builder.append(campos.get(i).toString());
+				
+				builder.append(" ");
+				
+				i++;
+			}	
+			
+			builder.append("\n");
+		}
+		
+		return builder.toString();
 	}
 }
