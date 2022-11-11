@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import br.com.cod3r.minado.excecao.ExplosaoException;
+
 public class Tabuleiro {
 	private static List<Campo> campos = new ArrayList<>();
 
@@ -25,11 +27,20 @@ public class Tabuleiro {
 		sortearMinas();
 	}
 	
-	public void abrirCampo(int linha, int coluna) {		
-		campos.stream()
-			.filter(campo -> campo.getLinha() == linha && campo.getColuna() == coluna)
-			.findFirst()
-			.ifPresent(campo -> campo.abrir());
+	public void abrirCampo(int linha, int coluna) {
+		try {
+			campos.stream()
+				.filter(campo -> campo.getLinha() == linha && campo.getColuna() == coluna)
+				.findFirst()
+				.ifPresent(campo -> campo.abrir());
+			
+		} catch(ExplosaoException explosaoException) {
+			campos.forEach(campo -> campo.setAberto(true));
+			
+			System.out.println(this.toString());
+			
+			throw explosaoException;
+		}
 	}
 	
 	public void marcarCampo(int linha, int coluna) {
@@ -85,7 +96,6 @@ public class Tabuleiro {
 		
 		for(int linha = 1; linha <= this.quantidadeDeLinhas; linha++) {
 			for(int coluna = 1; coluna <= this.quantidadeDeColunas; coluna++) {
-				
 				builder.append(" ");
 				
 				builder.append(campos.get(i).toString());

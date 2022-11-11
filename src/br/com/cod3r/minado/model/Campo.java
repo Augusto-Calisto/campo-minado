@@ -46,8 +46,8 @@ public class Campo {
 		if(!this.aberto && !this.marcado) {
 			this.aberto = true;
 			
-			if(this.minado) {
-				throw new ExplosaoException("Voce explodiu uma bomba :( \n\n FIM DE JOGO");
+			if(this.minado) {				
+				throw new ExplosaoException("Voce explodiu uma bomba :( \n\nFIM DE JOGO");
 			}
 			
 			if(vizinhancaSegura()) {
