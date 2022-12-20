@@ -1,11 +1,13 @@
 package br.com.cod3r.minado.model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.cod3r.minado.excecao.ExplosaoException;
 
-public class Campo {	
+public class Campo {
 	private final int linha;
 	private final int coluna;
 	
@@ -14,11 +16,13 @@ public class Campo {
 	private boolean marcado;
 	
 	private List<Campo> vizinhos;
+	private Set<ICampoObservador> observadores;
 	
 	public Campo(int linha, int coluna) {
 		this.linha = linha;
 		this.coluna = coluna;
 		this.vizinhos = new ArrayList<>();
+		this.observadores = new LinkedHashSet<>(); // Para notificar na ordem que foi adicionado no conjunto
 	}
 
 	public boolean adicionarVizinho(Campo campoVizinho) {
@@ -38,7 +42,7 @@ public class Campo {
 	
 	public void alternarMarcacao() {
 		if(!this.aberto) {
-			this.marcado = !this.marcado;
+			setMarcado(!this.marcado);
 		}
 	}
 	
@@ -47,6 +51,8 @@ public class Campo {
 			this.aberto = true;
 			
 			if(this.minado) {				
+				notificarObservadores(CampoEvento.EXPLODIR);
+				
 				throw new ExplosaoException("Voce explodiu uma bomba :( \n\nFIM DE JOGO");
 			}
 			
@@ -81,6 +87,14 @@ public class Campo {
 		this.minado = false;
 		this.marcado = false;
 	}
+	
+	public void registrarObservador(ICampoObservador observador) {
+		this.observadores.add(observador);
+	}
+	
+	private void notificarObservadores(CampoEvento eventoCampo) {
+		observadores.stream().forEach(observador -> observador.dispararEvento(this, eventoCampo));
+	}
 
 	public int getLinha() {
 		return linha;
@@ -104,6 +118,10 @@ public class Campo {
 
 	public void setAberto(boolean aberto) {
 		this.aberto = aberto;
+		
+		if(aberto) {
+			notificarObservadores(CampoEvento.ABRIR);
+		}
 	}
 
 	public void setMinado(boolean minado) {
@@ -119,29 +137,12 @@ public class Campo {
 	}
 
 	public void setMarcado(boolean marcado) {
+		if(marcado) {
+			notificarObservadores(CampoEvento.MARCAR);
+		} else {
+			notificarObservadores(CampoEvento.DESMARCAR);
+		}
+		
 		this.marcado = marcado;
-	}
-	
-	@Override
-	public String toString() {
-		if(this.marcado) {
-			return "X";
-		}
-		
-		if(this.aberto && this.minado) {
-			return "*";
-		}
-		
-		long quantidadeDeMinas = vizinhosComMinas();
-		
-		if(this.aberto && quantidadeDeMinas > 0) {
-			return Long.toString(quantidadeDeMinas);
-		}
-		
-		if(this.aberto) {
-			return " ";
-		}
-		
-		return "?";
 	}
 }

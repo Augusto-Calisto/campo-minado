@@ -87,27 +87,4 @@ public class Tabuleiro {
 		
 		sortearMinas();
 	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		
-		int i = 0;
-		
-		for(int linha = 1; linha <= this.quantidadeDeLinhas; linha++) {
-			for(int coluna = 1; coluna <= this.quantidadeDeColunas; coluna++) {
-				builder.append(" ");
-				
-				builder.append(campos.get(i).toString());
-				
-				builder.append(" ");
-				
-				i++;
-			}	
-			
-			builder.append("\n");
-		}
-		
-		return builder.toString();
-	}
 }
