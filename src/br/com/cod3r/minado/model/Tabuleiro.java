@@ -56,6 +56,10 @@ public class Tabuleiro implements ICampoObservador {
 			.filter(campo -> campo.isMarcado())
 			.forEach(campo -> campo.setAberto(true));
 	}
+	
+	public void adicionarCampoNoBotao(Consumer<Campo> consumer) {
+		campos.forEach(consumer);
+	}
 
 	public void marcarCampo(int linha, int coluna) {
 		campos.stream()
@@ -115,5 +119,13 @@ public class Tabuleiro implements ICampoObservador {
 		campos.stream().forEach(campo -> campo.reiniciar());
 		
 		sortearMinas();
+	}
+
+	public int getQuantidadeDeLinhas() {
+		return quantidadeDeLinhas;
+	}
+
+	public int getQuantidadeDeColunas() {
+		return quantidadeDeColunas;
 	}
 }
