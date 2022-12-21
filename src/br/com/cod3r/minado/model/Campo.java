@@ -1,9 +1,7 @@
 package br.com.cod3r.minado.model;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import br.com.cod3r.minado.excecao.ExplosaoException;
 
@@ -16,13 +14,13 @@ public class Campo {
 	private boolean marcado;
 	
 	private List<Campo> vizinhos;
-	private Set<ICampoObservador> observadores;
+	private List<ICampoObservador> observadores;
 	
 	public Campo(int linha, int coluna) {
 		this.linha = linha;
 		this.coluna = coluna;
 		this.vizinhos = new ArrayList<>();
-		this.observadores = new LinkedHashSet<>(); // Para notificar na ordem que foi adicionado no conjunto
+		this.observadores = new ArrayList<>(); // Para notificar na ordem que foi adicionado no conjunto
 	}
 
 	public boolean adicionarVizinho(Campo campoVizinho) {
@@ -40,7 +38,7 @@ public class Campo {
 		return false;
 	}
 	
-	public void alternarMarcacao() {
+	public void alternarMarcacao() {		
 		if(!this.aberto) {
 			setMarcado(!this.marcado);
 		}
@@ -53,8 +51,10 @@ public class Campo {
 			if(this.minado) {				
 				notificarObservadores(CampoEvento.EXPLODIR);
 				
-				throw new ExplosaoException("Voce explodiu uma bomba :( \n\nFIM DE JOGO");
+				throw new ExplosaoException("FIM DE JOGO");
 			}
+			
+			notificarObservadores(CampoEvento.ABRIR);
 			
 			if(vizinhancaSegura()) {
 				this.vizinhos.forEach(vizinho -> vizinho.abrir()); // recursao
@@ -74,7 +74,7 @@ public class Campo {
 		boolean desvendado = !this.minado && this.aberto;
 		
 		boolean protegido = this.minado && this.marcado;
-		
+				
 		return desvendado || protegido;
 	}
 	
@@ -93,7 +93,7 @@ public class Campo {
 	}
 	
 	private void notificarObservadores(CampoEvento eventoCampo) {
-		observadores.stream().forEach(observador -> observador.dispararEvento(this, eventoCampo));
+		this.observadores.stream().forEach(observador -> observador.dispararEvento(this, eventoCampo));
 	}
 
 	public int getLinha() {
@@ -137,12 +137,17 @@ public class Campo {
 	}
 
 	public void setMarcado(boolean marcado) {
+		this.marcado = marcado;
+		
 		if(marcado) {
 			notificarObservadores(CampoEvento.MARCAR);
 		} else {
 			notificarObservadores(CampoEvento.DESMARCAR);
 		}
-		
-		this.marcado = marcado;
+	}
+
+	@Override
+	public String toString() {
+		return "Campo [linha=" + linha + ", coluna=" + coluna + ", aberto=" + aberto + ", minado=" + minado + ", marcado=" + marcado + "]";
 	}
 }
