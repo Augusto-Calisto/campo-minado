@@ -3,10 +3,15 @@ package br.com.cod3r.minado.view;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import br.com.cod3r.minado.TelaPrincipal;
+import br.com.cod3r.minado.excecao.ExplosaoException;
 import br.com.cod3r.minado.model.Campo;
 import br.com.cod3r.minado.model.CampoEvento;
 import br.com.cod3r.minado.model.ICampoObservador;
@@ -14,8 +19,6 @@ import br.com.cod3r.minado.model.ICampoObservador;
 @SuppressWarnings({"serial", "unused"})
 public class BotaoCampo extends JButton implements ICampoObservador, MouseListener {
 	private final Color BG_PADRAO = new Color(184, 184, 184);
-	private final Color BG_MARCAR = new Color(8, 179, 247);
-	private final Color BG_EXPLODIR = new Color(189, 66, 68);
 
 	private Campo campo;
 	
@@ -28,19 +31,25 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getButton() == 1) { // MOUSE ESQUERDO
-			campo.abrir();
-			
-		} else if(e.getButton() == 3) { // MOUSE DIREITO
-			campo.alternarMarcacao();
+	public void mouseClicked(MouseEvent e) {		
+		try {
+			if(e.getButton() == 1) { // MOUSE ESQUERDO				
+				System.out.println(campo);
+				
+				System.out.println("QUAIS SAO OS VIZINHOS");
+				
+				campo.abrir();
+				
+			} else if(e.getButton() == 3) { // MOUSE DIREITO
+				campo.alternarMarcacao();
+			}
+		} catch(ExplosaoException explosao) {
+			System.out.println("Erro -> ExplosaoException");
 		}
 	}
 
 	@Override
-	public void dispararEvento(Campo campo, CampoEvento eventoCampo) {
-		System.out.println(eventoCampo);
-		
+	public void dispararEvento(Campo campo, CampoEvento eventoCampo) {				
 		switch(eventoCampo) {
 			case ABRIR:
 				aplicarEstiloAbrirCampo();
@@ -48,6 +57,10 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 			
 			case MARCAR:
 				aplicarEstiloMarcarCampo();
+			break;
+			
+			case DESMARCAR:
+				aplicarEstiloDesmarcarCampo();
 			break;
 			
 			case EXPLODIR:
@@ -61,59 +74,65 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 	}
 	
 	private void aplicarEstiloAbrirCampo() {
-		setBackground(BG_PADRAO);
-		
-		setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		
-		int vizinhosComMinas = (int) campo.vizinhosComMinas();
-		
-		setForeground(Color.GREEN);
-		
-		/*switch(vizinhosComMinas) {
-			case 1:
-				setForeground(Color.GREEN);
-			break;
-			
-			case 2:
-				setForeground(Color.BLUE);
-			break;
-			
-			case 3:
-				setForeground(Color.YELLOW);
-			break;
-			
-			case 4:
-			case 5:
-			case 6:
-				setForeground(Color.RED);
-			break;
-	
-			default:
-				setForeground(Color.PINK);
-			break;
-		}*/
-		
-		if(campo.vizinhancaSegura()) {
-			String texto = String.valueOf(vizinhosComMinas);
-			setText(texto);
+		if(campo.isAberto() && campo.isMinado()) {
+			aplicarEstiloExplodir();
 		} else {
-			setText("");
+			setBackground(BG_PADRAO);
+			
+			setBorder(BorderFactory.createLineBorder(Color.GRAY));
+			
+			int vizinhosComMinas = (int) campo.vizinhosComMinas();
+										
+			switch(vizinhosComMinas) {
+				case 1:
+					setForeground(new Color(0, 149, 85)); // VERDE
+				break;
+				
+				case 2:
+					setForeground(Color.BLUE);
+				break;
+				
+				case 3:
+					setForeground(new Color(63, 19, 115)); // ROXO
+				break;
+				
+				case 4:
+				case 5:
+				case 6:
+					setForeground(Color.RED);
+				break;
+		
+				default:
+					setForeground(Color.BLACK);
+				break;
+			}
+			
+			if(!campo.vizinhancaSegura()) {
+				String texto = String.valueOf(vizinhosComMinas);
+				super.setText(texto);
+			} else {
+				super.setText("");
+			}
 		}
 	}
 
-	private void aplicarEstiloMarcarCampo() {
-		
+	private void aplicarEstiloMarcarCampo() {		
+		super.setIcon(new ImageIcon(TelaPrincipal.PATH.concat("/imagens/flag.png")));
 	}
 
 	private void aplicarEstiloDesmarcarCampo() {
-		
-	}
-	
-	private void aplicarEstiloPadrao() {
-		
+		super.setIcon(null);
 	}
 	
 	private void aplicarEstiloExplodir() {
+		super.setBackground(BG_PADRAO);
+
+		super.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+					
+		super.setIcon(new ImageIcon(TelaPrincipal.PATH.concat("/imagens/mina.jpg")));
+	}
+	
+	private void aplicarEstiloPadrao() {
 		
 	}
 

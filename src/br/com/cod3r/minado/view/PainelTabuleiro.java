@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 
 import br.com.cod3r.minado.model.Tabuleiro;
 
+@SuppressWarnings("serial")
 public class PainelTabuleiro extends JPanel {
-	private static final long serialVersionUID = 1L;
-			
+		
 	public PainelTabuleiro(Tabuleiro tabuleiro) {
 		int quantidadeDeLinhas = tabuleiro.getQuantidadeDeLinhas();
 		
@@ -23,9 +23,9 @@ public class PainelTabuleiro extends JPanel {
 		
 		tabuleiro.registrarObservadores(ganhouPartida -> {
 			if(ganhouPartida) {
-				JOptionPane.showMessageDialog(null, "PARABENS, VOCE GANHOU :)", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "PARABENS, VOCE GANHOU", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "VOCE PERDEU, FIM DE JOGO :(", "CAMPO MINADO", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "VOCE PERDEU, FIM DE JOGO", "CAMPO MINADO", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 	}

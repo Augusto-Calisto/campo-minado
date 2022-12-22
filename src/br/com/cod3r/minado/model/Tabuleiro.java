@@ -33,6 +33,7 @@ public class Tabuleiro implements ICampoObservador {
 	public void dispararEvento(Campo campo, CampoEvento eventoCampo) {		
 		if(eventoCampo == CampoEvento.EXPLODIR) {
 			abrirCamposComMinas();
+			notificarObservadores(false);
 		}
 				
 		if(objetivoAlcancado()) {
@@ -53,7 +54,7 @@ public class Tabuleiro implements ICampoObservador {
 	
 	private void abrirCamposComMinas() {
 		campos.stream()
-			.filter(campo -> campo.isMarcado())
+			.filter(campo -> campo.isMinado())
 			.forEach(campo -> campo.setAberto(true));
 	}
 	
@@ -85,9 +86,7 @@ public class Tabuleiro implements ICampoObservador {
 				Campo campo = new Campo(linha, coluna);
 				
 				campo.registrarObservador(this);
-				
-				// campo.setMinado(true); FIXME TIRAR ESTA LINHA, É SÓ PARA TESTES
-								
+												
 				campos.add(campo);
 			}
 		}

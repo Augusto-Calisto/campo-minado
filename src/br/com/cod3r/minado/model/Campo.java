@@ -20,7 +20,7 @@ public class Campo {
 		this.linha = linha;
 		this.coluna = coluna;
 		this.vizinhos = new ArrayList<>();
-		this.observadores = new ArrayList<>(); // Para notificar na ordem que foi adicionado no conjunto
+		this.observadores = new ArrayList<>();
 	}
 
 	public boolean adicionarVizinho(Campo campoVizinho) {
@@ -29,12 +29,12 @@ public class Campo {
 		
 		int deltaGeral = deltaLinha + deltaColuna;
 		
-		if(deltaGeral == 1 || deltaGeral == 2) {
+		if(deltaGeral == 0 || deltaGeral == 1) {
 			this.vizinhos.add(campoVizinho);
 			
 			return true;
 		}
-
+		
 		return false;
 	}
 	
@@ -51,14 +51,14 @@ public class Campo {
 			if(this.minado) {				
 				notificarObservadores(CampoEvento.EXPLODIR);
 				
-				throw new ExplosaoException("FIM DE JOGO");
+				throw new ExplosaoException();
 			}
-			
-			notificarObservadores(CampoEvento.ABRIR);
-			
+						
 			if(vizinhancaSegura()) {
 				this.vizinhos.forEach(vizinho -> vizinho.abrir()); // recursao
 			}
+			
+			notificarObservadores(CampoEvento.ABRIR);
 			
 			return true;
 		}
@@ -66,7 +66,7 @@ public class Campo {
 		return false;
 	}
 	
-	public boolean vizinhancaSegura() {
+	public boolean vizinhancaSegura() {		
 		return this.vizinhos.stream().noneMatch(vizinho -> vizinho.minado);
 	}
 	

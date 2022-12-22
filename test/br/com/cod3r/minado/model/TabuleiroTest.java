@@ -5,11 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 class TabuleiroTest {
-	
-	@Mock
 	private Tabuleiro tabuleiro;
 	
 	@BeforeEach
@@ -19,9 +16,7 @@ class TabuleiroTest {
 
 	@Test
 	@DisplayName(value = "Abrir campo do tabuleiro linha e coluna")
-	void abrirCampoDoTabuleiroPorLinhaEColuna() {
-		
-								
+	void abrirCampoDoTabuleiroPorLinhaEColuna() {				
 		assertAll(() -> tabuleiro.abrirCampo(1, 9));
 	}
 }
