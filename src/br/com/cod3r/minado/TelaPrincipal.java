@@ -44,6 +44,10 @@ public class TelaPrincipal extends JFrame {
 				
 		JMenuItem itemReiniciar = new JMenuItem("Reiniciar");
 		
+		itemReiniciar.addActionListener((e) -> {
+			tabuleiro.reiniciarJogo();
+		});
+		
 		menuJogo.add(itemReiniciar);
 				
 		menuBar.add(menuJogo);

@@ -1,6 +1,5 @@
 package br.com.cod3r.minado.view;
 
-import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.JOptionPane;
@@ -28,8 +27,6 @@ public class PainelTabuleiro extends JPanel {
 				if(ganhouPartida) {
 					JOptionPane.showMessageDialog(this, "PARABENS, VOCE GANHOU", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					//removerMouseListenerGameOver();
-					
 					JOptionPane.showMessageDialog(this, "FIM DE JOGO, VOCE PERDEU", "CAMPO MINADO", JOptionPane.ERROR_MESSAGE);
 				}
 				
@@ -38,26 +35,13 @@ public class PainelTabuleiro extends JPanel {
 		});
 	}
 	
-	// @SuppressWarnings("unused")
 	private void reiniciarTabuleiro(Tabuleiro tabuleiro) {
 		int confirmacao = JOptionPane.showConfirmDialog(this, "DESEJA JOGAR NOVAMENTE?", "CAMPO MINADO", JOptionPane.YES_NO_OPTION);
 		
 		if(confirmacao == JOptionPane.YES_OPTION) {
-			tabuleiro.reiniciarJogo();
-			System.out.println("Reiniciando...");
+			tabuleiro.reiniciarJogo();			
 		} else {
 			System.exit(0);
-		}
-	}
-
-	@SuppressWarnings("unused")
-	private void removerMouseListenerGameOver() {
-		Component[] components = super.getComponents();
-		
-		for(int i = 0; i < components.length; i++) {
-			BotaoCampo botao = (BotaoCampo) components[i];
-								
-			botao.removeMouseListener(botao);
 		}
 	}
 }
