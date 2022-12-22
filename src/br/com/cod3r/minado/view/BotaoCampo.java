@@ -3,8 +3,6 @@ package br.com.cod3r.minado.view;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,9 +14,12 @@ import br.com.cod3r.minado.model.Campo;
 import br.com.cod3r.minado.model.CampoEvento;
 import br.com.cod3r.minado.model.ICampoObservador;
 
-@SuppressWarnings({"serial", "unused"})
+@SuppressWarnings("serial")
 public class BotaoCampo extends JButton implements ICampoObservador, MouseListener {
 	private final Color BG_PADRAO = new Color(184, 184, 184);
+	
+	private final Color TEXTO_VERDE = new Color(0, 149, 85);
+	private final Color TEXTO_ROXO = new Color(63, 19, 115);
 
 	private Campo campo;
 	
@@ -31,16 +32,14 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {		
+	public void mouseClicked(MouseEvent e) {
 		try {
 			if(e.getButton() == 1) { // MOUSE ESQUERDO				
 				System.out.println(campo);
-				
-				System.out.println("QUAIS SAO OS VIZINHOS");
-				
+								
 				campo.abrir();
 				
-			} else if(e.getButton() == 3) { // MOUSE DIREITO
+			} else if(e.getButton() == 3) { // MOUSE DIREITO				
 				campo.alternarMarcacao();
 			}
 		} catch(ExplosaoException explosao) {
@@ -77,33 +76,33 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 		if(campo.isAberto() && campo.isMinado()) {
 			aplicarEstiloExplodir();
 		} else {
-			setBackground(BG_PADRAO);
-			
-			setBorder(BorderFactory.createLineBorder(Color.GRAY));
+			super.setBackground(BG_PADRAO);
+						
+			super.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 			
 			int vizinhosComMinas = (int) campo.vizinhosComMinas();
 										
 			switch(vizinhosComMinas) {
 				case 1:
-					setForeground(new Color(0, 149, 85)); // VERDE
+					super.setForeground(TEXTO_VERDE);
 				break;
 				
 				case 2:
-					setForeground(Color.BLUE);
+					super.setForeground(Color.BLUE);
 				break;
 				
 				case 3:
-					setForeground(new Color(63, 19, 115)); // ROXO
+					super.setForeground(TEXTO_ROXO);
 				break;
 				
 				case 4:
 				case 5:
 				case 6:
-					setForeground(Color.RED);
+					super.setForeground(Color.RED);
 				break;
 		
 				default:
-					setForeground(Color.BLACK);
+					super.setForeground(Color.BLACK);
 				break;
 			}
 			

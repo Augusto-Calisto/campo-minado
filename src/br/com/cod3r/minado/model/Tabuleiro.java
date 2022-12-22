@@ -74,8 +74,7 @@ public class Tabuleiro implements ICampoObservador {
 	}
 	
 	private void notificarObservadores(boolean resultado) {
-		observadores.stream()
-					.forEach(observador -> observador.accept(resultado));
+		observadores.stream().forEach(observador -> observador.accept(resultado));
 	}
 	
 	private void gerarCampos() {
@@ -110,7 +109,7 @@ public class Tabuleiro implements ICampoObservador {
 		}
 	}
 	
-	public boolean objetivoAlcancado() {
+	public boolean objetivoAlcancado() {	
 		return campos.stream().allMatch(campo -> campo.objetivoAlcancado());
 	}
 	
