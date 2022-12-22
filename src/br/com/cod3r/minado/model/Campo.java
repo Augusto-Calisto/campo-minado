@@ -86,6 +86,7 @@ public class Campo {
 		this.aberto = false;
 		this.minado = false;
 		this.marcado = false;
+		notificarObservadores(CampoEvento.REINICIAR);
 	}
 	
 	public void registrarObservador(ICampoObservador observador) {

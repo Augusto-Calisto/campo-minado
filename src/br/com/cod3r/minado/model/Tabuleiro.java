@@ -54,7 +54,7 @@ public class Tabuleiro implements ICampoObservador {
 	
 	private void abrirCamposComMinas() {
 		campos.stream()
-			.filter(campo -> campo.isMinado())
+			.filter(campo -> campo.isMinado() && !campo.isMarcado())
 			.forEach(campo -> campo.setAberto(true));
 	}
 	

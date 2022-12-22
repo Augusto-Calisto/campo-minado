@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import br.com.cod3r.minado.model.Tabuleiro;
 
@@ -23,28 +24,33 @@ public class PainelTabuleiro extends JPanel {
 		tabuleiro.adicionarCampoNoBotao(campo -> super.add(new BotaoCampo(campo)));
 		
 		tabuleiro.registrarObservadores(ganhouPartida -> {
-			if(ganhouPartida) {
-				JOptionPane.showMessageDialog(null, "PARABENS, VOCE GANHOU", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE);
-			} else {
-				removerMouseListenerGameOver();
+			SwingUtilities.invokeLater(() -> {
+				if(ganhouPartida) {
+					JOptionPane.showMessageDialog(this, "PARABENS, VOCE GANHOU", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					//removerMouseListenerGameOver();
+					
+					JOptionPane.showMessageDialog(this, "FIM DE JOGO, VOCE PERDEU", "CAMPO MINADO", JOptionPane.ERROR_MESSAGE);
+				}
 				
-				JOptionPane.showMessageDialog(null, "FIM DE JOGO, VOCE PERDEU", "CAMPO MINADO", JOptionPane.ERROR_MESSAGE);
-				
-				reiniciarTabuleiro();
-			}
+				reiniciarTabuleiro(tabuleiro);
+			});
 		});
 	}
 	
-	private void reiniciarTabuleiro() {
-		int confirmacao = JOptionPane.showConfirmDialog(null, "DESEJA JOGAR NOVAMENTE?", "CAMPO MINADO", JOptionPane.YES_NO_OPTION);
+	// @SuppressWarnings("unused")
+	private void reiniciarTabuleiro(Tabuleiro tabuleiro) {
+		int confirmacao = JOptionPane.showConfirmDialog(this, "DESEJA JOGAR NOVAMENTE?", "CAMPO MINADO", JOptionPane.YES_NO_OPTION);
 		
 		if(confirmacao == JOptionPane.YES_OPTION) {
+			tabuleiro.reiniciarJogo();
 			System.out.println("Reiniciando...");
 		} else {
 			System.exit(0);
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void removerMouseListenerGameOver() {
 		Component[] components = super.getComponents();
 		
