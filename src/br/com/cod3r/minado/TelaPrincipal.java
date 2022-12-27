@@ -3,6 +3,8 @@ package br.com.cod3r.minado;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Enumeration;
 import java.util.Iterator;
 
@@ -20,7 +22,7 @@ import br.com.cod3r.minado.model.Dificuldade;
 import br.com.cod3r.minado.model.PropertiesProjeto;
 
 @SuppressWarnings("serial")
-public class TelaPrincipal extends JFrame implements ItemListener {
+public class TelaPrincipal extends JFrame implements ItemListener, KeyListener {
 	private JTextField txtQuantidadeDeLinhas;
 	private JTextField txtQuantidadeDeColunas;
 	private JTextField txtQuantidadeDeMinas;
@@ -44,10 +46,34 @@ public class TelaPrincipal extends JFrame implements ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if(e.getStateChange() == ItemEvent.SELECTED) {
-			panelOpcaoDificuldadePersonalizada.setVisible(true); // Ira aparecer quando a opcao PERSONALIZADO for escolhida 
+			panelOpcaoDificuldadePersonalizada.setVisible(true); // Ira aparecer quando a opcao PERSONALIZADO for escolhida
+			btnComecar.setEnabled(false);
         } else {
         	panelOpcaoDificuldadePersonalizada.setVisible(false);
+			btnComecar.setEnabled(true);
         }
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent ke) {
+		char input = ke.getKeyChar();
+		
+		if((input < '0' || input > '9') && input != '\b') {
+			ke.consume();
+		}
+	}
+	
+	@Override
+	public void keyReleased(KeyEvent ke) {
+		boolean inputLinhaEstaVazio = txtQuantidadeDeLinhas.getText().isBlank();
+		boolean inputColunaEstaVazio = txtQuantidadeDeColunas.getText().isBlank();
+		boolean inputMinaEstaVazio = txtQuantidadeDeMinas.getText().isBlank();
+				
+		if(inputLinhaEstaVazio || inputColunaEstaVazio || inputMinaEstaVazio) {
+			btnComecar.setEnabled(false);
+		} else {
+			btnComecar.setEnabled(true);
+		}
 	}
 	
 	public TelaPrincipal() {
@@ -57,6 +83,14 @@ public class TelaPrincipal extends JFrame implements ItemListener {
 		
 		addRadiosDificuldadeFrame();
 		
+		addBotaoIniciarJogo();
+				
+	    addPanelComOpcoesDificuldadePersonalizada();
+	    
+	    super.setVisible(true);
+	}
+
+	private void addBotaoIniciarJogo() {
 		btnComecar = new JButton("INICIAR PARTIDA");
 		btnComecar.setBounds(80, 310, 304, 23);
 		
@@ -67,7 +101,7 @@ public class TelaPrincipal extends JFrame implements ItemListener {
 			
 			for(Iterator<AbstractButton> element = elements.asIterator(); elements.hasMoreElements();) {
 				JRadioButton radio = (JRadioButton) element.next();
-								
+												
 				if(radio.isSelected()) {
 					String dificuldadeJogo = radio.getText();
 					
@@ -81,10 +115,6 @@ public class TelaPrincipal extends JFrame implements ItemListener {
 		});
 		
 		super.getContentPane().add(btnComecar);
-		
-	    addPanelComOpcoesDificuldadePersonalizada();
-	    
-	    super.setVisible(true);
 	}
 	
 	private void configuracoesIniciaisFrame() {
@@ -114,7 +144,7 @@ public class TelaPrincipal extends JFrame implements ItemListener {
 	private void addPanelComOpcoesDificuldadePersonalizada() {
 		panelOpcaoDificuldadePersonalizada = new JPanel();
 		panelOpcaoDificuldadePersonalizada.setVisible(false);
-		panelOpcaoDificuldadePersonalizada.setBounds(135, 188, 345, 105); // 64, 188, 345, 105
+		panelOpcaoDificuldadePersonalizada.setBounds(135, 188, 345, 105);
 		panelOpcaoDificuldadePersonalizada.setLayout(null);
 		
 		lblQuantidadeDeLinhas = new JLabel("Linhas:");
@@ -130,20 +160,23 @@ public class TelaPrincipal extends JFrame implements ItemListener {
 		panelOpcaoDificuldadePersonalizada.add(lblQuantidadeDeMinas);
 		
 		txtQuantidadeDeLinhas = new JTextField();
-		txtQuantidadeDeLinhas.setBounds(67, 11, 100, 20); // 63, 11, 272, 20
+		txtQuantidadeDeLinhas.setBounds(67, 11, 100, 20);
 		txtQuantidadeDeLinhas.setToolTipText("QUANTIDADE DE LINHAS");
+		txtQuantidadeDeLinhas.addKeyListener(this);
 		txtQuantidadeDeLinhas.setColumns(10);
 		panelOpcaoDificuldadePersonalizada.add(txtQuantidadeDeLinhas);
 		
 		txtQuantidadeDeColunas = new JTextField();
-		txtQuantidadeDeColunas.setBounds(67, 42, 100, 20); // 63, 42, 272, 20
+		txtQuantidadeDeColunas.setBounds(67, 42, 100, 20);
 		txtQuantidadeDeColunas.setToolTipText("QUANTIDADE DE COLUNAS");
+		txtQuantidadeDeColunas.addKeyListener(this);
 		txtQuantidadeDeColunas.setColumns(10);
 		panelOpcaoDificuldadePersonalizada.add(txtQuantidadeDeColunas);
 		
 		txtQuantidadeDeMinas = new JTextField();
-		txtQuantidadeDeMinas.setBounds(67, 73, 100, 20); // 63, 73, 272, 20
+		txtQuantidadeDeMinas.setBounds(67, 73, 100, 20);
 		txtQuantidadeDeMinas.setToolTipText("QUANTIDADE DE MINAS");
+		txtQuantidadeDeMinas.addKeyListener(this);
 		txtQuantidadeDeMinas.setColumns(10);
 		panelOpcaoDificuldadePersonalizada.add(txtQuantidadeDeMinas);
 		
@@ -176,4 +209,7 @@ public class TelaPrincipal extends JFrame implements ItemListener {
 		super.getContentPane().add(radioDificuldadeDificil);
 		super.getContentPane().add(radioDificuldadePersonalizado);
 	}
+	
+	@Override
+	public void keyPressed(KeyEvent ke) {}
 }
