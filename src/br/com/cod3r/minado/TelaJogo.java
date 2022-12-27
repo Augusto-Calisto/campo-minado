@@ -25,15 +25,13 @@ public class TelaJogo extends JFrame {
 		super.add(painelTabuleiro);
 		
 		super.setTitle("CAMPO MINADO");
-		
+				
 		super.setSize(690, 438);
 						
 		super.setLocationRelativeTo(null); // Centralizando a tela
 		
 		super.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
-		super.setResizable(false);
-				
+						
 		super.setIconImage(PropertiesProjeto.getImagem("logo.png"));
 		
 		menuBar = new JMenuBar();
