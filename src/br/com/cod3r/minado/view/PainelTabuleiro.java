@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import br.com.cod3r.minado.model.PropertiesProjeto;
 import br.com.cod3r.minado.model.Tabuleiro;
 
 @SuppressWarnings("serial")
@@ -25,19 +26,19 @@ public class PainelTabuleiro extends JPanel {
 		tabuleiro.registrarObservadores(ganhouPartida -> {
 			SwingUtilities.invokeLater(() -> {
 				if(ganhouPartida) {
-					JOptionPane.showMessageDialog(this, "PARABENS, VOCE GANHOU", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(this, "PARABENS, VOCE GANHOU", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE, PropertiesProjeto.getIcone("logo.png"));
 				} else {
-					JOptionPane.showMessageDialog(this, "FIM DE JOGO, VOCE PERDEU", "CAMPO MINADO", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "FIM DE JOGO, VOCE PERDEU", "CAMPO MINADO", JOptionPane.ERROR_MESSAGE, PropertiesProjeto.getIcone("logo.png"));
 				}
 				
-				reiniciarTabuleiro(tabuleiro);
+				reiniciarJogo(tabuleiro);
 			});
 		});
 	}
 	
-	private void reiniciarTabuleiro(Tabuleiro tabuleiro) {
+	private void reiniciarJogo(Tabuleiro tabuleiro) {
 		int confirmacao = JOptionPane.showConfirmDialog(this, "DESEJA JOGAR NOVAMENTE?", "CAMPO MINADO", JOptionPane.YES_NO_OPTION);
-		
+				
 		if(confirmacao == JOptionPane.YES_OPTION) {
 			tabuleiro.reiniciarJogo();			
 		} else {

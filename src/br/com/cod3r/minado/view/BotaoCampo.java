@@ -5,25 +5,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
-import br.com.cod3r.minado.TelaPrincipal;
 import br.com.cod3r.minado.excecao.ExplosaoException;
 import br.com.cod3r.minado.model.Campo;
 import br.com.cod3r.minado.model.CampoEvento;
 import br.com.cod3r.minado.model.ICampoObservador;
+import br.com.cod3r.minado.model.PropertiesProjeto;
 
 @SuppressWarnings("serial")
 public class BotaoCampo extends JButton implements ICampoObservador, MouseListener {
 	private final Color BG_PADRAO = new Color(184, 184, 184);
-	
-	@SuppressWarnings("unused")
-	private final Color BG_MINA_MARCADA = new Color(226, 115, 40);
-	
 	private final Color TEXTO_VERDE = new Color(0, 149, 85);
-	private final Color TEXTO_ROXO = new Color(63, 19, 115);
+	private final Color TEXTO_LARANJA = new Color(254, 70, 12);
 
 	private Campo campo;
 	
@@ -39,10 +34,10 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		try {
-			if(e.getButton() == 1) { // MOUSE ESQUERDO								
+			if(e.getButton() == MouseEvent.BUTTON1) { // MOUSE ESQUERDO								
 				campo.abrir();
 				
-			} else if(e.getButton() == 3) { // MOUSE DIREITO
+			} else if(e.getButton() == MouseEvent.BUTTON3) { // MOUSE DIREITO
 				campo.alternarMarcacao();
 			}
 		} catch(ExplosaoException explosao) {
@@ -83,9 +78,7 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 	private void aplicarEstiloAbrirCampo() {
 		if(campo.isAberto() && campo.isMinado()) {
 			aplicarEstiloExplodir();
-		} else {
-			super.setBackground(BG_PADRAO);
-						
+		} else {						
 			super.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 			
 			int vizinhosComMinas = (int) campo.vizinhosComMinas();
@@ -100,7 +93,7 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 				break;
 				
 				case 3:
-					super.setForeground(TEXTO_ROXO);
+					super.setForeground(TEXTO_LARANJA);
 				break;
 				
 				case 4:
@@ -124,7 +117,7 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 	}
 
 	private void aplicarEstiloMarcarCampo() {		
-		super.setIcon(new ImageIcon(TelaPrincipal.PATH.concat("/imagens/flag.png")));
+		super.setIcon(PropertiesProjeto.getIcone("flag.png"));
 	}
 
 	private void aplicarEstiloDesmarcarCampo() {
@@ -134,7 +127,7 @@ public class BotaoCampo extends JButton implements ICampoObservador, MouseListen
 	private void aplicarEstiloExplodir() {
 		super.setBackground(BG_PADRAO);
 		super.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		super.setIcon(new ImageIcon(TelaPrincipal.PATH.concat("/imagens/mina.jpg")));
+		super.setIcon(PropertiesProjeto.getIcone("mina.jpg"));
 	}
 	
 	private void aplicarEstiloPadrao() {
