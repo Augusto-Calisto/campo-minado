@@ -16,7 +16,7 @@ public class PainelTabuleiro extends JPanel {
 		int quantidadeDeLinhas = tabuleiro.getQuantidadeDeLinhas();
 		
 		int quantidadeDeColunas = tabuleiro.getQuantidadeDeColunas();
-		
+	
 		GridLayout layout = new GridLayout(quantidadeDeLinhas, quantidadeDeColunas);
 				
 		super.setLayout(layout);
@@ -41,7 +41,7 @@ public class PainelTabuleiro extends JPanel {
 				
 		if(confirmacao == JOptionPane.YES_OPTION) {
 			tabuleiro.reiniciarJogo();			
-		} else {
+		} else {			
 			System.exit(0);
 		}
 	}

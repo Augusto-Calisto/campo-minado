@@ -27,7 +27,7 @@ public class TelaJogo extends JFrame {
 		super.setTitle("CAMPO MINADO");
 		
 		super.setSize(690, 438);
-				
+						
 		super.setLocationRelativeTo(null); // Centralizando a tela
 		
 		super.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -51,13 +51,13 @@ public class TelaJogo extends JFrame {
 		menuJogo = new JMenu("Jogo");
 						
 		itemReiniciar = new JMenuItem("Reiniciar");
-		
+				
 		itemReiniciar.addActionListener((e) -> {
 			tabuleiro.reiniciarJogo();
 		});
 		
 		menuJogo.add(itemReiniciar);
-				
+						
 		menuBar.add(menuJogo);
 	}
 	

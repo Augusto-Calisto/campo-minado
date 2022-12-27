@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import br.com.cod3r.minado.model.Dificuldade;
 import br.com.cod3r.minado.model.PropertiesProjeto;
+import br.com.cod3r.minado.model.Tabuleiro;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ItemListener, KeyListener {
@@ -101,15 +102,28 @@ public class TelaPrincipal extends JFrame implements ItemListener, KeyListener {
 			
 			for(Iterator<AbstractButton> element = elements.asIterator(); elements.hasMoreElements();) {
 				JRadioButton radio = (JRadioButton) element.next();
-												
+																
 				if(radio.isSelected()) {
 					String dificuldadeJogo = radio.getText();
-					
-					Dificuldade dificuldade = Dificuldade.valueOf(dificuldadeJogo);
-											
+															
 					super.dispose();
 					
-					new TelaJogo(dificuldade.getTabuleiro());
+					if(dificuldadeJogo.equals("PERSONALIZADO")) {
+						int linhas = Integer.parseInt(txtQuantidadeDeLinhas.getText());
+						
+						int colunas = Integer.parseInt(txtQuantidadeDeColunas.getText());
+
+						int minas = Integer.parseInt(txtQuantidadeDeMinas.getText());
+
+						new TelaJogo(new Tabuleiro(linhas, colunas, minas));
+						
+					} else {
+						Dificuldade dificuldade = Dificuldade.valueOf(dificuldadeJogo);
+						
+						new TelaJogo(dificuldade.getTabuleiro());
+					}
+					
+					return ;
 				}
 			}
 		});
