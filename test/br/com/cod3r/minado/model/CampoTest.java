@@ -20,7 +20,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho direito se a distancia entre os campos = 1")
+	@DisplayName(value = "Retornar verdadeiro para vizinho direito quando a distancia entre os campos = 1")
 	void retornarVerdadeiro_DistanciaIgual_Um_VizinhoDireita() {
 		Campo vizinhoDireito = new Campo(2, 3);
 		
@@ -30,7 +30,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho esquerdo se a distancia entre os campos = 1")
+	@DisplayName(value = "Retornar verdadeiro para vizinho esquerdo quando a distancia entre os campos = 1")
 	void retornarVerdadeiro_DistanciaIgual_Um_VizinhoEsquerda() {
 		Campo vizinhoEsquerdo = new Campo(2, 1);
 		
@@ -40,29 +40,9 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho diagonal direita se a distancia entre os campos = 2")
-	void retornarVerdadeiro_DistanciaIgual_Dois_DiagonalDireita() {
-		Campo vizinhoDiagonalDireita = new Campo(1, 3);
-		
-		boolean isVizinho = campo.adicionarVizinho(vizinhoDiagonalDireita);
-		
-		assertTrue(isVizinho);
-	}
-	
-	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho diagonal esquerda se a distancia entre os campos = 2")
-	void retornarVerdadeiro_DistanciaIgual_Dois_DiagonalEsquerda() {
-		Campo vizinhoDiagonalEsquerda = new Campo(1, 1);
-		
-		boolean isVizinho = campo.adicionarVizinho(vizinhoDiagonalEsquerda);
-		
-		assertTrue(isVizinho);
-	}
-	
-	@Test
-	@DisplayName(value = "Retornar falso se a distancia entre o campo e o vizinho for diferente de 1 ou 2")
-	void retornarFalso_Se_DeltaForMaior_UmOuDois() {
-		Campo campoDistante = new Campo(1, 4);
+	@DisplayName(value = "Retornar falso se a distancia entre o campo e o vizinho for diferente de 0 ou 1")
+	void retornarFalso_Se_DeltaForMaior_ZeroOuUm() {
+		Campo campoDistante = new Campo(1, 3);
 		
 		boolean isVizinho = campo.adicionarVizinho(campoDistante);
 		
@@ -70,7 +50,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro quando estiver fechado (aberto = false), marcado = true")
+	@DisplayName(value = "Retornar verdadeiro quando campo estiver fechado (aberto = false) e marcado = true")
 	void marcadoTemQueSerVerdadeiro_QuandoEstiverFechado() {
 		campo.setAberto(false);
 		
@@ -102,7 +82,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Abrir o vizinho que nao tenha mina")
+	@DisplayName(value = "Abrir vizinho que nao tenha mina")
 	void abrirVizinhoSeguro() {
 		Campo vizinhoDireito = new Campo(2, 3);
 				
@@ -168,15 +148,15 @@ class CampoTest {
 		Campo vizinhoDireito = new Campo(2, 3);
 		vizinhoDireito.setMinado(false);
 		
-		Campo vizinhoDebaixo = new Campo(3, 2);
-		vizinhoDebaixo.setMinado(true);
+		Campo vizinhoDeBaixo = new Campo(3, 2);
+		vizinhoDeBaixo.setMinado(true);
 		
 		
 		campo.adicionarVizinho(vizinhoDeCima);
 		
 		campo.adicionarVizinho(vizinhoDireito);
 
-		campo.adicionarVizinho(vizinhoDebaixo);
+		campo.adicionarVizinho(vizinhoDeBaixo);
 		
 		
 		assertEquals(1L, campo.vizinhosComMinas());
