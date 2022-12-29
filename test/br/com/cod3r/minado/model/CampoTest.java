@@ -20,7 +20,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho direito quando a distancia entre os campos = 1")
+	@DisplayName(value = "Retornar verdadeiro para vizinho direito quando a distancia entre os campos for igual 1")
 	void retornarVerdadeiro_DistanciaIgual_Um_VizinhoDireita() {
 		Campo vizinhoDireito = new Campo(2, 3);
 		
@@ -30,7 +30,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro para vizinho esquerdo quando a distancia entre os campos = 1")
+	@DisplayName(value = "Retornar verdadeiro para vizinho esquerdo quando a distancia entre os campos for igual 1")
 	void retornarVerdadeiro_DistanciaIgual_Um_VizinhoEsquerda() {
 		Campo vizinhoEsquerdo = new Campo(2, 1);
 		
@@ -40,8 +40,8 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar falso se a distancia entre o campo e o vizinho for diferente de 0 ou 1")
-	void retornarFalso_Se_DeltaForMaior_ZeroOuUm() {
+	@DisplayName(value = "Retornar falso se a distancia entre o campo e o vizinho for maior que 1")
+	void retornarFalso_Se_DeltaForMaior_Um() {
 		Campo campoDistante = new Campo(1, 3);
 		
 		boolean isVizinho = campo.adicionarVizinho(campoDistante);
@@ -50,7 +50,7 @@ class CampoTest {
 	}
 	
 	@Test
-	@DisplayName(value = "Retornar verdadeiro quando campo estiver fechado (aberto = false) e marcado = true")
+	@DisplayName(value = "Retornar verdadeiro quando marcar um campo fechado")
 	void marcadoTemQueSerVerdadeiro_QuandoEstiverFechado() {
 		campo.setAberto(false);
 		
@@ -160,5 +160,53 @@ class CampoTest {
 		
 		
 		assertEquals(1L, campo.vizinhosComMinas());
+	}
+	
+	@Test
+	@DisplayName(value = "Retornar verdadeiro quando o campo nao minado estiver aberto")
+	void retornarVerdadeiro_QuandoDesvendarTodosOsCampos() {
+		campo.setAberto(true);
+		
+		campo.setMinado(false);
+		
+		assertTrue(campo.objetivoAlcancado());
+	}
+	
+	@Test
+	@DisplayName(value = "Retornar verdadeiro quando todos os campos minados estiverem marcados")
+	void retornarVerdadeiro_QuandoTodosOsCamposMinadosEstiveremMarcados() {
+		campo.setAberto(false);
+		
+		campo.setMinado(true);
+		
+		campo.setMarcado(true);
+		
+		assertTrue(campo.objetivoAlcancado());
+	}
+	
+	@Test
+	@DisplayName(value = "Retornar falso quando os campos minados nao forem protegidos")
+	void retornarFalso_QuandoOsCamposNaoEstiveremProtegidos() {
+		campo.setAberto(false);
+		
+		campo.setMinado(true);
+		
+		campo.setMarcado(false);
+		
+		assertFalse(campo.objetivoAlcancado());
+	}
+	
+	@Test
+	@DisplayName(value = "Retornar verdadeiro quando reiniciar o jogo, resetar os atributos do campo")
+	void retornarVerdadeiro_ResetarAtributosCampo() {
+		campo.reiniciar();
+		
+		boolean campoFechado = !campo.isAberto();
+		
+		boolean campoDesmarcado = !campo.isMarcado();
+		
+		boolean campoNaoMinado = !campo.isMinado();
+		
+		assertTrue(campoFechado && campoDesmarcado && campoNaoMinado);
 	}
 }
