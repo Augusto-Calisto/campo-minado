@@ -122,23 +122,11 @@ public class Tabuleiro implements ICampoObservador {
 		return quantidadeDeLinhas;
 	}
 	
-	public void setQuantidadeDeLinhas(int quantidadeDeLinhas) {
-		this.quantidadeDeLinhas = quantidadeDeLinhas;
-	}
-
 	public int getQuantidadeDeColunas() {
 		return quantidadeDeColunas;
 	}
 
-	public void setQuantidadeDeColunas(int quantidadeDeColunas) {
-		this.quantidadeDeColunas = quantidadeDeColunas;
-	}
-	
 	public int getQuantidadeDeMinas() {
 		return quantidadeDeMinas;
-	}
-
-	public void setQuantidadeDeMinas(int quantidadeDeMinas) {
-		this.quantidadeDeMinas = quantidadeDeMinas;
 	}
 }
