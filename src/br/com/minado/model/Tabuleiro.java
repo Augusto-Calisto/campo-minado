@@ -1,11 +1,11 @@
-package br.com.cod3r.minado.model;
+package br.com.minado.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
-import br.com.cod3r.minado.excecao.ExplosaoException;
+import br.com.minado.excecao.ExplosaoException;
 
 public class Tabuleiro implements ICampoObservador {
 	private static List<Campo> campos = new ArrayList<>();

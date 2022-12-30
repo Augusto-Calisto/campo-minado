@@ -1,4 +1,4 @@
-package br.com.cod3r.minado;
+package br.com.minado.view;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -6,9 +6,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import br.com.cod3r.minado.model.PropertiesProjeto;
-import br.com.cod3r.minado.model.Tabuleiro;
-import br.com.cod3r.minado.view.PainelTabuleiro;
+import br.com.minado.model.PropertiesProjeto;
+import br.com.minado.model.Tabuleiro;
 
 @SuppressWarnings("serial")
 public class TelaJogo extends JFrame {

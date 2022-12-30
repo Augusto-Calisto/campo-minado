@@ -1,9 +1,9 @@
-package br.com.cod3r.minado.model;
+package br.com.minado.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cod3r.minado.excecao.ExplosaoException;
+import br.com.minado.excecao.ExplosaoException;
 
 public class Campo {
 	private final int linha;

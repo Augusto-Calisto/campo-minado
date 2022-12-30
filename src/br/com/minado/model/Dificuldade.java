@@ -1,4 +1,4 @@
-package br.com.cod3r.minado.model;
+package br.com.minado.model;
 
 public enum Dificuldade {
 	FACIL {

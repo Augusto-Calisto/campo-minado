@@ -1,4 +1,4 @@
-package br.com.cod3r.minado.model;
+package br.com.minado.model;
 
 import java.awt.Image;
 import java.awt.Toolkit;

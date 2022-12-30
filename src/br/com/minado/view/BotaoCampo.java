@@ -1,4 +1,4 @@
-package br.com.cod3r.minado.view;
+package br.com.minado.view;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -8,11 +8,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
-import br.com.cod3r.minado.excecao.ExplosaoException;
-import br.com.cod3r.minado.model.Campo;
-import br.com.cod3r.minado.model.CampoEvento;
-import br.com.cod3r.minado.model.ICampoObservador;
-import br.com.cod3r.minado.model.PropertiesProjeto;
+import br.com.minado.excecao.ExplosaoException;
+import br.com.minado.model.Campo;
+import br.com.minado.model.CampoEvento;
+import br.com.minado.model.ICampoObservador;
+import br.com.minado.model.PropertiesProjeto;
 
 @SuppressWarnings("serial")
 public class BotaoCampo extends JButton implements ICampoObservador, MouseListener {

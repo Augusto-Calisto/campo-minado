@@ -1,4 +1,4 @@
-package br.com.cod3r.minado.view;
+package br.com.minado.view;
 
 import java.awt.GridLayout;
 
@@ -6,8 +6,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import br.com.cod3r.minado.model.PropertiesProjeto;
-import br.com.cod3r.minado.model.Tabuleiro;
+import br.com.minado.model.PropertiesProjeto;
+import br.com.minado.model.Tabuleiro;
 
 @SuppressWarnings("serial")
 public class PainelTabuleiro extends JPanel {

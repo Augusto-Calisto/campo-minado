@@ -1,4 +1,4 @@
-package br.com.cod3r.minado.excecao;
+package br.com.minado.excecao;
 
 @SuppressWarnings("serial")
 public class ExplosaoException extends RuntimeException {

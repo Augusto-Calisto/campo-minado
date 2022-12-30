@@ -1,4 +1,4 @@
-package br.com.cod3r.minado;
+package br.com.minado;
 
 import java.awt.Font;
 import java.awt.event.ItemEvent;
@@ -18,9 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import br.com.cod3r.minado.model.Dificuldade;
-import br.com.cod3r.minado.model.PropertiesProjeto;
-import br.com.cod3r.minado.model.Tabuleiro;
+import br.com.minado.model.Dificuldade;
+import br.com.minado.model.PropertiesProjeto;
+import br.com.minado.model.Tabuleiro;
+import br.com.minado.view.TelaJogo;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ItemListener, KeyListener {
