@@ -1,3 +1,3 @@
 # Campo Minado
 
-<img src="res/demo_jogo.gif"/>
+<img src="resource/demo_jogo.gif"/>
