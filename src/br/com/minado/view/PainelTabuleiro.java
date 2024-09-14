@@ -9,9 +9,9 @@ import javax.swing.SwingUtilities;
 import br.com.minado.model.PropertiesProjeto;
 import br.com.minado.model.Tabuleiro;
 
-@SuppressWarnings("serial")
 public class PainelTabuleiro extends JPanel {
-		
+	private static final long serialVersionUID = 1L;
+
 	public PainelTabuleiro(Tabuleiro tabuleiro) {
 		int quantidadeDeLinhas = tabuleiro.getQuantidadeDeLinhas();
 		

@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+  	<groupId>campo-minado</groupId>
+  	
+  	<artifactId>campo-minado</artifactId>
+  	
+  	<version>0.0.1-SNAPSHOT</version>
+  	
+  	<name>campo-minado</name>
+  	
+  	<description>Projeto do jogo Campo Minado</description>
+  	
+  	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <exec.mainClass>br.com.minado.RodarAplicacao</exec.mainClass>
+    </properties>
+  	
+  	<dependencies>
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-engine</artifactId>
+		    <version>5.11.0-M2</version>
+		    <scope>test</scope>
+		</dependency>
+	</dependencies>
+  	
+  	<build>
+    	<sourceDirectory>src</sourceDirectory>
+    	
+    	<testSourceDirectory>test</testSourceDirectory>
+    	
+    	<plugins>
+      		<plugin>
+        		<artifactId>maven-compiler-plugin</artifactId>
+        		<version>3.8.1</version>
+        		<configuration>
+          			<release>11</release>
+        		</configuration>
+      		</plugin>
+      		
+      		<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-resources-plugin</artifactId>
+	            <version>3.2.0</version>
+	            <configuration>
+	                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+	                <resources>
+	                    <resource>
+	                        <directory>resource</directory>
+	                    </resource>
+	                </resources>
+	            </configuration>
+	        </plugin>
+    	</plugins>
+  	</build>
+</project>

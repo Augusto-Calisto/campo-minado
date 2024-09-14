@@ -9,8 +9,9 @@ import javax.swing.JOptionPane;
 import br.com.minado.model.PropertiesProjeto;
 import br.com.minado.model.Tabuleiro;
 
-@SuppressWarnings("serial")
 public class TelaJogo extends JFrame {
+	private static final long serialVersionUID = 1L;
+	
 	private JMenuBar menuBar;
 	private JMenu menuJogo;
 	private JMenu menuSobre;
@@ -64,7 +65,7 @@ public class TelaJogo extends JFrame {
 		itemSobreJogo = new JMenuItem("Regras do Jogo");
 		
 		itemSobreJogo.addActionListener((e) -> {
-			JOptionPane.showMessageDialog(this, "Cada partida começa com um tabuleiro dividido em vários quadrados sem qualquer marcação. Depois de clicar em um deles, os quadrados em volta desaparecem: alguns ficarão brancos, \nenquanto outros terão números. Com a ajuda dos números, será possível descobrir quais possuem minas por perto e quais podem ser clicados.\n\nUse os botões esquerdo e direito do mouse. Não é preciso nada além do mouse para desfrutar do jogo; com o botão esquerdo, você clica em quadrados sem minas, enquanto o direito marca os quadrados “perigosos”.", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE, PropertiesProjeto.getIcone("logo.png"));
+			JOptionPane.showMessageDialog(this, "Cada partida comeï¿½a com um tabuleiro dividido em vï¿½rios quadrados sem qualquer marcacao. Depois de clicar em um deles, os quadrados em volta desaparecem: alguns ficarao brancos, \nenquanto outros terao numeros. Com a ajuda dos numeros, sera possivel descobrir quais possuem minas por perto e quais podem ser clicados.\n\nUse os botoes esquerdo e direito do mouse. Nao e preciso nada alem do mouse para desfrutar do jogo; com o botao esquerdo, voce clica em quadrados sem minas, enquanto o direito marca os quadrados perigosos.", "CAMPO MINADO", JOptionPane.INFORMATION_MESSAGE, PropertiesProjeto.getIcone("logo.png"));
 		});
 		
 		itemSobreDesenvolvedor = new JMenuItem("Desenvolvedor");

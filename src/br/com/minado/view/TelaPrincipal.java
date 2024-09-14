@@ -1,4 +1,4 @@
-package br.com.minado;
+package br.com.minado.view;
 
 import java.awt.Font;
 import java.awt.event.ItemEvent;
@@ -21,10 +21,10 @@ import javax.swing.JTextField;
 import br.com.minado.model.Dificuldade;
 import br.com.minado.model.PropertiesProjeto;
 import br.com.minado.model.Tabuleiro;
-import br.com.minado.view.TelaJogo;
 
-@SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ItemListener, KeyListener {
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField txtQuantidadeDeLinhas;
 	private JTextField txtQuantidadeDeColunas;
 	private JTextField txtQuantidadeDeMinas;
@@ -40,11 +40,7 @@ public class TelaPrincipal extends JFrame implements ItemListener, KeyListener {
 	private JLabel lblQuantidadeDeColunas;
 	private JLabel lblQuantidadeDeMinas;
 	private JLabel lblDificuldadeJogo;
-	
-	public static void main(String[] args) {		
-		new TelaPrincipal();
-	}
-	
+		
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if(e.getStateChange() == ItemEvent.SELECTED) {

@@ -14,11 +14,12 @@ import br.com.minado.model.CampoEvento;
 import br.com.minado.model.ICampoObservador;
 import br.com.minado.model.PropertiesProjeto;
 
-@SuppressWarnings("serial")
 public class BotaoCampo extends JButton implements ICampoObservador, MouseListener {
-	private final Color BG_PADRAO = new Color(184, 184, 184);
-	private final Color TEXTO_VERDE = new Color(0, 149, 85);
-	private final Color TEXTO_LARANJA = new Color(254, 70, 12);
+	private static final long serialVersionUID = 1L;
+	
+	private static final Color BG_PADRAO = new Color(184, 184, 184);
+	private static final Color TEXTO_VERDE = new Color(0, 149, 85);
+	private static final Color TEXTO_LARANJA = new Color(254, 70, 12);
 
 	private Campo campo;
 	
